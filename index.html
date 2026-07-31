@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch School - A Vintage Watch Primer</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f2e8; --paper-2:#fffdf8; --ink:#2a2622; --ink-soft:#5c544a;
+    --brass:#9a7b3f; --brass-deep:#7a5f2c; --green:#4e6128; --line:#e3dac8;
+    --steel:#c9c6bf; --steel-d:#8f8c84;
+    --shadow:0 1px 3px rgba(42,38,34,.08),0 6px 24px rgba(42,38,34,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.12;letter-spacing:.2px}
+  a{color:var(--brass-deep)}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(247,242,232,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:10px 22px}
+  nav .brand{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);margin-right:auto;letter-spacing:.5px}
+  nav .brand span{color:var(--brass)}
+  nav a{font-size:13px;color:var(--ink-soft);text-decoration:none;padding:6px 10px;border-radius:6px;font-weight:500}
+  nav a:hover{background:var(--line);color:var(--ink)}
+  nav a.active{color:var(--brass-deep);background:#f0e7d3}
+
+  header.hero{padding:64px 0 30px;background:radial-gradient(120% 80% at 82% -10%, #f0e7d0 0%, transparent 55%),var(--paper)}
+  .hero .kicker{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--brass);font-weight:600}
+  .hero h1{font-size:56px;margin:14px 0 10px}
+  .hero p{font-size:19px;color:var(--ink-soft);max-width:640px;margin:0}
+
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:38px;margin:0 0 6px}
+  section .lead{color:var(--ink-soft);font-size:17px;margin:0 0 26px;max-width:720px}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:8px}
+
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .grid{display:grid;gap:16px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  .grid.three{grid-template-columns:1fr 1fr 1fr}
+  @media(max-width:780px){.grid.two,.grid.three{grid-template-columns:1fr}}
+
+  .pill{display:inline-block;font-size:11px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:999px;background:#efe6d1;color:var(--brass-deep);margin:0 5px 6px 0}
+  .pill.green{background:#e7eedb;color:var(--green)}
+
+  figure{margin:0}
+  figcaption{font-size:13.5px;color:var(--ink-soft);text-align:center;margin-top:10px;font-style:italic}
+
+  /* INTERACTIVE WATCH DIAGRAM */
+  .diagram{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:center}
+  @media(max-width:840px){.diagram{grid-template-columns:1fr}}
+  .diagwrap{background:radial-gradient(60% 60% at 50% 40%,#fffdf8,#f3ecdb);border:1px solid var(--line);border-radius:16px;padding:8px}
+  svg{display:block;width:100%;height:auto}
+  .lbl-text{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;fill:var(--ink);cursor:pointer}
+  .lbl-text:hover{fill:var(--brass-deep)}
+  .lbl-text.on{fill:var(--brass-deep)}
+  .leader{stroke:var(--steel-d);stroke-width:1.4;cursor:pointer}
+  .leader.on{stroke:var(--brass);stroke-width:2.4}
+  .dot{fill:var(--steel-d);cursor:pointer}
+  .dot.on{fill:var(--brass)}
+  .detailbox{padding:22px 24px;min-height:200px}
+  .detailbox .tag{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+  .detailbox h3{font-size:26px;margin:3px 0 0;color:var(--brass-deep)}
+  .detailbox p{margin:12px 0 0;font-size:15px}
+  .hint{font-size:13px;color:var(--ink-soft);margin-top:12px}
+
+  /* TABS */
+  .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .tabs button{border:1px solid var(--line);background:var(--paper-2);padding:10px 20px;border-radius:999px;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;color:var(--ink-soft)}
+  .tabs button.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabpane{display:none}.tabpane.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .specrow{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px}
+  .specrow b{color:var(--brass-deep)}
+  @media(max-width:560px){.specrow{grid-template-columns:1fr}}
+
+  /* SWATCHES */
+  .swatch{padding:14px;text-align:center}
+  .swatch svg{border-radius:10px;border:1px solid var(--line)}
+  .swatch h4{font-size:20px;margin:12px 0 2px}
+  .swatch p{font-size:13.5px;color:var(--ink-soft);margin:0}
+
+  .shaperow{display:flex;gap:10px;flex-wrap:wrap}
+  .shapecard{flex:1;min-width:120px;text-align:center;padding:14px 8px}
+  .shapecard svg{height:64px}
+  .shapecard span{display:block;font-weight:600;font-size:14px;margin-top:6px}
+  .shapecard small{color:var(--ink-soft);font-size:12px}
+
+  /* ACCORDION */
+  .acc{margin-bottom:12px;overflow:hidden}
+  .acc>button{width:100%;text-align:left;background:var(--paper-2);border:none;cursor:pointer;padding:18px 22px;font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:12px}
+  .acc>button .sub{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-soft);margin-left:auto;text-align:right}
+  .acc>button .chev{transition:.2s;color:var(--brass);font-size:18px}
+  .acc.open>button .chev{transform:rotate(90deg)}
+  .acc .body{display:none;padding:0 22px 22px}
+  .acc.open .body{display:block;animation:fade .25s ease}
+  .acc .body ul{margin:8px 0;padding-left:18px}.acc .body li{margin:6px 0}
+
+  .note{background:#f3ecdb;border-left:3px solid var(--brass);border-radius:0 8px 8px 0;padding:14px 18px;font-size:14.5px;color:var(--ink-soft);margin:16px 0}
+  .note b{color:var(--ink)}
+
+  .mine{padding:8px 4px 0}
+  .mine h3{font-size:24px;margin:0;color:var(--brass-deep)}
+  .mine .ref{font-size:12.5px;color:var(--ink-soft);font-weight:600;letter-spacing:.4px;margin:2px 0 10px}
+  .mine p{font-size:14px}
+
+  #gsearch{width:100%;padding:14px 18px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:16px;background:var(--paper-2);margin-bottom:16px}
+  #gsearch:focus{outline:none;border-color:var(--brass)}
+  .gitem{padding:13px 0;border-bottom:1px solid var(--line)}
+  .gitem dt{font-weight:600;color:var(--brass-deep);font-size:16px}
+  .gitem dd{margin:4px 0 0;color:var(--ink-soft);font-size:15px}
+  .ghidden{display:none}
+  .gcount{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+
+  footer{padding:40px 0 60px;text-align:center;color:var(--ink-soft);font-size:13.5px}
+  footer .brand{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Watch<span>School</span></div>
+    <a href="#start">Start</a>
+    <a href="#anatomy">Anatomy</a>
+    <a href="#movements">Movements</a>
+    <a href="#dials">Dials</a>
+    <a href="#buying">Buying</a>
+    <a href="#collection">Your Watches</a>
+    <a href="#brands">Brands</a>
+    <a href="#glossary">Glossary</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">A Vintage Watch Primer</div>
+    <h1>Learn to read a watch.</h1>
+    <p>From zero. Point at any part and know what it is, understand the machine inside, and spot an honest watch from a dressed-up one. Built around diagrams you can poke at, not walls of text.</p>
+  </div>
+</header>
+
+<!-- START -->
+<section id="start">
+  <div class="wrap">
+    <div class="eyebrow">Start Here</div>
+    <h2>Two layers, that's the whole trick</h2>
+    <p class="lead">A watch is a little machine wearing clothes. See those two layers separately and the hobby opens up.</p>
+    <div class="grid two">
+      <div class="card" style="padding:22px 24px">
+        <h3 style="margin:0;color:var(--brass-deep);font-size:25px">The machine</h3>
+        <p style="font-size:15px">Inside is an engine called the <b>movement</b>. It stores energy in a spring and releases it in even ticks to drive the hands. Each movement design has a model name - its <b>caliber</b>. "Caliber 551" tells a collector the size, type, era, and quality in three digits.</p>
+      </div>
+      <div class="card" style="padding:22px 24px">
+        <h3 style="margin:0;color:var(--brass-deep);font-size:25px">The clothes</h3>
+        <p style="font-size:15px">The <b>case</b>, the <b>dial</b> [the face], hands, crystal, markers - everything you see. This is where most of the value and nearly all the traps live. The big question is always whether the clothes are <b>original</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANATOMY -->
+<section id="anatomy">
+  <div class="wrap">
+    <div class="eyebrow">The Machine, Part 1</div>
+    <h2>Anatomy, with pointers</h2>
+    <p class="lead">Tap any label or dot on the watch. The leader lines point to the part; the panel explains it.</p>
+    <div class="diagram">
+      <figure>
+        <div class="diagwrap"><svg id="watchsvg" viewBox="0 0 920 620" role="img" aria-label="Labeled watch diagram"></svg></div>
+        <figcaption>A 1950s-style dress watch, drawn from your Constellation. Tap the labels.</figcaption>
+      </figure>
+      <div class="card detailbox" id="watchdetail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MOVEMENTS -->
+<section id="movements">
+  <div class="wrap">
+    <div class="eyebrow">The Machine, Part 2</div>
+    <h2>What powers it</h2>
+    <p class="lead">Three ways a watch runs. Identify this first on any watch - it changes how you wind, service, and value it.</p>
+
+    <div class="grid two" style="align-items:center;margin-bottom:26px">
+      <figure>
+        <div class="diagwrap"><svg id="movesvg" viewBox="0 0 460 420" role="img" aria-label="Movement schematic"></svg></div>
+        <figcaption>The flow of energy: spring &rarr; gears &rarr; escapement &rarr; balance, with a rotor on top to self-wind.</figcaption>
+      </figure>
+      <div>
+        <div class="specrow"><b>Mainspring</b><span>Coiled spring that stores the power.</span></div>
+        <div class="specrow"><b>Gear train</b><span>Passes energy along and drives the hands.</span></div>
+        <div class="specrow"><b>Escapement</b><span>Releases it one tick at a time.</span></div>
+        <div class="specrow"><b>Balance wheel</b><span>Swings back and forth - the heartbeat.</span></div>
+        <div class="specrow"><b>Rotor</b><span>Swinging weight that winds it as you move [automatic only].</span></div>
+      </div>
+    </div>
+
+    <div class="tabs" id="movetabs">
+      <button data-m="manual" class="active">Manual</button>
+      <button data-m="auto">Automatic</button>
+      <button data-m="quartz">Quartz</button>
+    </div>
+    <div class="tabpane active" data-m="manual">
+      <div class="card" style="padding:20px 24px">
+        <h3 style="margin:0;color:var(--brass-deep)">Manual wind</h3>
+        <div class="specrow"><b>You do</b><span>Wind the crown ~20-30 turns daily, or it stops.</span></div>
+        <div class="specrow"><b>Feel</b><span>Thinnest, purest, most direct. A daily ritual.</span></div>
+        <div class="specrow"><b>Your example</b><span>Omega ref 2536, caliber 265 - manual sub-seconds.</span></div>
+      </div>
+    </div>
+    <div class="tabpane" data-m="auto">
+      <div class="card" style="padding:20px 24px">
+        <h3 style="margin:0;color:var(--brass-deep)">Automatic [self-winding]</h3>
+        <div class="specrow"><b>Full rotor</b><span>A half-disc spinning 360&deg;. Modern standard. Your Constellation cal 551.</span></div>
+        <div class="specrow"><b>Bumper</b><span>Early type - the weight rocks and "bumps" springs. You feel a nudge. Your Seamaster cal 354.</span></div>
+        <div class="specrow"><b>Power reserve</b><span>Off the wrist it runs ~40 hours, then stops.</span></div>
+      </div>
+    </div>
+    <div class="tabpane" data-m="quartz">
+      <div class="card" style="padding:20px 24px">
+        <h3 style="margin:0;color:var(--brass-deep)">Quartz</h3>
+        <div class="specrow"><b>What</b><span>Battery + vibrating crystal. Accurate, cheap, low-romance. Not the target here.</span></div>
+        <div class="specrow"><b>The tell</b><span>Seconds hand ticks in steps. A mechanical hand <i>sweeps</i> smoothly - that sweep is the giveaway you're looking at a real movement.</span></div>
+      </div>
+    </div>
+
+    <div class="note"><b>Your service paper, decoded:</b> <b>Amplitude</b> = how far the balance swings [250-300&deg; strong]. <b>Beat error</b> = how evenly the tick-tock is spaced [under 0.8ms good]. <b>Rate</b> = seconds gained/lost per day [within ~30s/day is healthy for vintage]. <b>Power reserve</b> = hours on a full wind. The four vital signs.</div>
+  </div>
+</section>
+
+<!-- DIALS -->
+<section id="dials">
+  <div class="wrap">
+    <div class="eyebrow">The Clothes</div>
+    <h2>Dials - textures, markers, hands</h2>
+    <p class="lead">The face is what you pay for. Here's the vocabulary, drawn out.</p>
+
+    <h3 style="font-size:24px;margin:0 0 4px">Dial textures</h3>
+    <div class="grid three" style="margin-bottom:30px">
+      <div class="card swatch">
+        <svg viewBox="0 0 200 120" width="100%"><rect width="200" height="120" fill="#efe9d8"/><g id="honeyswatch"></g></svg>
+        <h4>Honeycomb</h4><p>Fine grid. Your Seamaster 2577.</p>
+      </div>
+      <div class="card swatch">
+        <svg viewBox="0 0 200 120" width="100%"><rect width="200" height="120" fill="#ece6d4"/><g id="linenswatch"></g></svg>
+        <h4>Linen</h4><p>Woven cross-hatch.</p>
+      </div>
+      <div class="card swatch">
+        <svg viewBox="0 0 200 120" width="100%"><rect width="200" height="120" fill="#f0ead9"/>
+          <path d="M20 40 L70 70 L130 70 L180 40 L180 95 L20 95 Z" fill="#e2d8bd" stroke="#c9bd98"/>
+          <path d="M70 70 L130 70 L130 95 L70 95 Z" fill="#eee7d2"/>
+          <line x1="70" y1="70" x2="70" y2="95" stroke="#c9bd98"/><line x1="130" y1="70" x2="130" y2="95" stroke="#c9bd98"/>
+        </svg>
+        <h4>Pie-pan</h4><p>Sloped outer edge. Your Constellation.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:24px;margin:0 0 4px">Hour markers</h3>
+    <div class="card shaperow" style="padding:18px;margin-bottom:24px">
+      <div class="shapecard"><svg viewBox="0 0 40 60"><polygon points="20,8 30,40 20,34 10,40" fill="#b9962f" stroke="#7a5f2c"/></svg><span>Arrowhead</span><small>Your Constellation</small></div>
+      <div class="shapecard"><svg viewBox="0 0 40 60"><rect x="16" y="10" width="8" height="34" rx="2" fill="#b9962f" stroke="#7a5f2c"/></svg><span>Baton</span><small>Plain bar</small></div>
+      <div class="shapecard"><svg viewBox="0 0 40 60"><polygon points="20,8 25,42 15,42" fill="#b9962f" stroke="#7a5f2c"/></svg><span>Dagger</span><small>Tapered</small></div>
+      <div class="shapecard"><svg viewBox="0 0 40 60"><text x="20" y="40" font-size="34" font-family="Cormorant Garamond,serif" fill="#7a5f2c" text-anchor="middle">12</text></svg><span>Numeral</span><small>Printed or applied</small></div>
+    </div>
+
+    <h3 style="font-size:24px;margin:0 0 4px">Hand shapes</h3>
+    <div class="card shaperow" style="padding:18px">
+      <div class="shapecard"><svg viewBox="0 0 30 70"><polygon points="15,6 20,40 15,50 10,40" fill="#9a7b3f" stroke="#7a5f2c"/></svg><span>Dauphine</span><small>Faceted, dressy</small></div>
+      <div class="shapecard"><svg viewBox="0 0 30 70"><path d="M15 8 C22 28 22 40 15 50 C8 40 8 28 15 8 Z" fill="#9a7b3f" stroke="#7a5f2c"/></svg><span>Leaf</span><small>Rounded</small></div>
+      <div class="shapecard"><svg viewBox="0 0 30 70"><rect x="13" y="8" width="4" height="30" fill="#9a7b3f"/><circle cx="15" cy="44" r="7" fill="none" stroke="#9a7b3f" stroke-width="3"/></svg><span>Syringe</span><small>Pilot style</small></div>
+      <div class="shapecard"><svg viewBox="0 0 30 70"><rect x="12" y="8" width="6" height="42" rx="2" fill="#9a7b3f" stroke="#7a5f2c"/></svg><span>Baton</span><small>Plain stick</small></div>
+    </div>
+
+    <div class="note"><b>Patina vs rot:</b> small flat specks on a 70-year-old dial are honest <b>age spotting</b> - cosmetic, stable, and a sign the dial is genuinely original. <b>Active rot</b> spreads, looks raised or bubbling, and eats the dial. Flat = fine. Raised and growing = walk. <b>Tropical</b> dials aged to warm brown are prized when natural, and the single most faked trait in vintage - demand macro shots.</div>
+  </div>
+</section>
+
+<!-- BUYING -->
+<section id="buying">
+  <div class="wrap">
+    <div class="eyebrow">Not Getting Fooled</div>
+    <h2>How to buy vintage</h2>
+    <p class="lead">The watch is half of it. The other half is everything the seller left out of frame.</p>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Originality is the whole game <span class="sub">read first</span></button>
+      <div class="body">
+        <ul>
+          <li><b>Original dial</b> - never repainted. A <b>refinished / redial</b> dial looks too clean for its age and quietly kills value. An honest dial with light spotting beats a flawless repaint.</li>
+          <li><b>Unpolished case</b> - never buffed down. Sharp, full edges, as the factory made it. Polishing removes metal forever.</li>
+        </ul>
+        <p>Chase the flawless dial and you usually end up with a fake one. Honest imperfection is the price of the real thing.</p>
+      </div>
+    </div>
+    <div class="acc card"><button><span class="chev">&#9656;</span> Frankenwatch <span class="sub">parts from many watches</span></button>
+      <div class="body"><p>A <b>franken</b> is built from parts of different watches - one's case, another's dial, a wrong-era movement. Each part may be real; the whole is not honest, and not worth honest money. Confirm dial, case, movement, and hands all belong to the same reference and era. This is what a trusted dealer's reputation buys you.</p></div>
+    </div>
+    <div class="acc card"><button><span class="chev">&#9656;</span> Reference &amp; serial numbers <span class="sub">the watch's ID</span></button>
+      <div class="body"><ul>
+        <li><b>Reference</b> - the model code [your Seamaster: ref 2577]. What the watch is meant to be.</li>
+        <li><b>Serial</b> - unique, and on most brands it <b>dates</b> the watch [your Constellation's places it ~1960-61].</li>
+      </ul><p>Cross-check both against dial, case, and movement. One consistent story.</p></div>
+    </div>
+    <div class="acc card"><button><span class="chev">&#9656;</span> Service &amp; the real price <span class="sub">the hidden cost</span></button>
+      <div class="body"><p>A mechanical watch needs a full <b>service</b> every 3-5 years - a few hundred dollars, more for tricky movements like bumpers. So the real price is the ask <b>plus</b> any service due. A freshly serviced watch earns a premium because that cost and risk is handled.</p>
+        <div class="note"><b>Trust the source, verify the watch.</b> A dealer you've bought from before lowers risk a lot - it never removes the homework. Even an honest dealer prices a pretty dial high. Still ask for macro shots, the service date, and the caliber. Every time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="wrap">
+    <div class="eyebrow">Worked Examples</div>
+    <h2>Your watches, decoded</h2>
+    <p class="lead">Every concept above, on the three you own. Fastest way to make it stick.</p>
+    <div class="grid three">
+      <div class="card" style="padding:18px 20px">
+        <svg viewBox="0 0 120 120" width="100%" height="120" data-mini="constellation"></svg>
+        <div class="mine"><h3>Constellation</h3><div class="ref">Ref 14381 &middot; cal 551 &middot; ~1960</div>
+        <span class="pill green">Auto, full rotor</span><span class="pill">Pie-pan</span><span class="pill">Arrowhead</span>
+        <p>Your dress anchor. Chronometer-grade with the signature sloped dial and sought-after arrowhead markers. Serviced, original dial.</p></div>
+      </div>
+      <div class="card" style="padding:18px 20px">
+        <svg viewBox="0 0 120 120" width="100%" height="120" data-mini="seamaster"></svg>
+        <div class="mine"><h3>Seamaster</h3><div class="ref">Ref 2577 &middot; cal 354 &middot; ~1952</div>
+        <span class="pill green">Auto, bumper</span><span class="pill">Honeycomb</span><span class="pill">Unpolished</span>
+        <p>Your new daily-wearer. First-gen Seamaster, the bumper you feel on the wrist, honest honeycomb dial. Serviced May 2026.</p></div>
+      </div>
+      <div class="card" style="padding:18px 20px">
+        <svg viewBox="0 0 120 120" width="100%" height="120" data-mini="subsec"></svg>
+        <div class="mine"><h3>Omega sub-seconds</h3><div class="ref">Ref 2536 &middot; cal 265 &middot; ~1949</div>
+        <span class="pill">Manual</span><span class="pill">Sub-seconds</span><span class="pill">Character</span>
+        <p>The oldest, fully hand-wound, with a small-seconds dial from Omega's robust 30mm family. Honest-rough - a piece to wear.</p></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:20px"><b>Want real photos here?</b> Drop clean shots of your watches into the <code>assets/</code> folder next to this file and tell me - I'll wire them in beside the illustrations.</div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <div class="wrap">
+    <div class="eyebrow">The Lay of the Land</div>
+    <h2>Houses worth knowing</h2>
+    <p class="lead">Sorted roughly by where they sit. Tap to open. Prices are rough feels for honest entry examples and move around a lot.</p>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Omega <span class="sub">your house &middot; $$</span></button>
+      <div class="body"><p>A great name and the best value among the heavyweights - similar quality to Rolex, far cheaper.</p><ul>
+        <li><b>Constellation</b> - chronometer dress line, pie-pan dials. [Your 14381.]</li>
+        <li><b>Seamaster</b> - everyday and tool, dressy to diver. [Your 2577.]</li>
+        <li><b>Speedmaster</b> - the chronograph that went to the Moon. The icon. Cal 321 and 861.</li>
+        <li><b>Key calibers</b> - 30mm family [manual], bumper autos [35x], full-rotor [55x/56x], Speedmaster 321/861.</li>
+      </ul></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Rolex <span class="sub">the blue chip &middot; $$$$</span></button>
+      <div class="body"><p>Most liquid, most recognized, most expensive of the mainstream. Built the waterproof <b>Oyster</b> case.</p><ul>
+        <li><b>Datejust / Day-Date</b> - the dress staples.</li>
+        <li><b>Submariner, Explorer, GMT, Daytona</b> - tool legends, now blue-chip money.</li>
+        <li>You pay for engineering, liquidity, and brand gravity. The tax is price - it starts high and climbs.</li>
+      </ul></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Universal Gen&egrave;ve <span class="sub">connoisseur's value &middot; $$</span></button>
+      <div class="body"><p>A storied house punching above its prices - why collectors love it.</p><ul>
+        <li><b>Polerouter</b> - designed 1954 by a 23-year-old G&eacute;rald Genta for SAS polar flights. The <b>microrotor</b> versions [cal 215/218] are the ones to want. [Your current hunt.]</li>
+        <li><b>Compax / Tri-Compax</b> - superb, still-undervalued chronographs.</li>
+      </ul></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Longines <span class="sub">the underrated steal &middot; $-$$</span></button>
+      <div class="body"><p>A golden-age great whose vintage is some of the best value anywhere. Lovely dress watches and legendary flyback chronographs [13ZN, 30CH] the market still under-prices.</p></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Heuer <span class="sub">motorsport chronos &middot; $$$</span></button>
+      <div class="body"><p>Pre-TAG Heuer built the great racing chronographs.</p><ul>
+        <li><b>Carrera, Autavia, Monaco</b> [the square McQueen one]. Classic Valjoux movements, very wearable.</li>
+      </ul></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Jaeger-LeCoultre <span class="sub">watchmaker's watchmaker &middot; $$$</span></button>
+      <div class="body"><p>Supplied movements to Patek, Vacheron, and AP. Master of the thin and the clever.</p><ul>
+        <li><b>Reverso</b> [1931] - the Art Deco case that flips to protect the crystal.</li>
+        <li><b>Memovox</b> - a mechanical alarm watch.</li>
+      </ul></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> The holy trinity <span class="sub">Patek &middot; Vacheron &middot; AP &middot; $$$$$</span></button>
+      <div class="body"><ul>
+        <li><b>Patek Philippe</b> - the most coveted. The <b>Calatrava</b> defines the dress watch; complications set auction records.</li>
+        <li><b>Vacheron Constantin</b> - oldest manufacture in continuous operation [1755]. Ultra-thin, understated.</li>
+        <li><b>Audemars Piguet</b> - high complications, and the steel <b>Royal Oak</b> [Genta] that rewrote the rules.</li>
+      </ul></div></div>
+
+    <div class="acc card"><button><span class="chev">&#9656;</span> Worth knowing <span class="sub">IWC &middot; Zenith &middot; Tudor &middot; Seiko</span></button>
+      <div class="body"><ul>
+        <li><b>IWC</b> - engineering-first; the Mark 11 pilot, antimagnetic Ingenieur.</li>
+        <li><b>Zenith</b> - the <b>El Primero</b> [1969], one of the first automatic chronographs, high-beat at 36,000/hour.</li>
+        <li><b>Tudor</b> - Rolex's sibling, once "the affordable Rolex," now hot [snowflake-hand Submariners].</li>
+        <li><b>Seiko</b> - the serious, affordable entry. The 6105/6309 divers and 6139 chronograph are real icons for a fraction of Swiss money.</li>
+      </ul></div></div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="glossary">
+  <div class="wrap">
+    <div class="eyebrow">Quick Lookup</div>
+    <h2>Glossary</h2>
+    <p class="lead">Forget a word, find it. Type to filter.</p>
+    <input id="gsearch" type="text" placeholder="Search - try 'rotor', 'tropical', 'caliber'...">
+    <div class="gcount" id="gcount"></div>
+    <dl id="glist"></dl>
+  </div>
+</section>
+
+<footer><div class="wrap"><div class="brand">Watch<span style="color:var(--brass)">School</span></div>
+  <p>Built for Nelsen, by Jiwon. A living primer - it grows as your collection does.</p></div></footer>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+
+/* ---------- MAIN WATCH DIAGRAM ---------- */
+(function(){
+  const svg=document.getElementById('watchsvg');
+  const cx=460, cy=305, Rcase=178, Rbezel=152, Rdial=140, Rpie=100;
+  const defs=el('defs',{});
+  const g1=el('radialGradient',{id:'steel',cx:'40%',cy:'35%',r:'75%'});
+  g1.appendChild(el('stop',{offset:'0%','stop-color':'#eceae4'}));
+  g1.appendChild(el('stop',{offset:'60%','stop-color':'#cdcabf'}));
+  g1.appendChild(el('stop',{offset:'100%','stop-color':'#8f8c84'}));
+  defs.appendChild(g1);
+  const g2=el('radialGradient',{id:'dialg',cx:'50%',cy:'42%',r:'65%'});
+  g2.appendChild(el('stop',{offset:'0%','stop-color':'#fbf6e9'}));
+  g2.appendChild(el('stop',{offset:'78%','stop-color':'#efe7d0'}));
+  g2.appendChild(el('stop',{offset:'100%','stop-color':'#ddd1b2'}));
+  defs.appendChild(g2);
+  svg.appendChild(defs);
+
+  // lugs
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sy])=>{
+    const lx=cx+sx*Rcase*0.72, ly=cy+sy*Rcase*0.72;
+    const lug=el('rect',{x:lx-13,y:ly-13,width:26,height:46,rx:8,fill:'url(#steel)',stroke:'#7d7a72','stroke-width':1,
+      transform:`rotate(${sx*sy>0?45:-45} ${lx} ${ly})`});
+    svg.appendChild(lug);
+  });
+  // crown
+  svg.appendChild(el('rect',{x:cx+Rcase-2,y:cy-13,width:26,height:26,rx:4,fill:'url(#steel)',stroke:'#7d7a72'}));
+  svg.appendChild(el('rect',{x:cx+Rcase+22,y:cy-6,width:8,height:12,rx:2,fill:'#9a978f'}));
+  // case + bezel + dial
+  svg.appendChild(el('circle',{cx,cy,r:Rcase,fill:'url(#steel)',stroke:'#7d7a72','stroke-width':2}));
+  svg.appendChild(el('circle',{cx,cy,r:Rbezel,fill:'#bdbab1',stroke:'#9a978f'}));
+  svg.appendChild(el('circle',{cx,cy,r:Rdial,fill:'url(#dialg)',stroke:'#cdbf9c'}));
+  svg.appendChild(el('circle',{cx,cy,r:Rpie,fill:'none',stroke:'#d8cba8','stroke-width':1.5}));
+  // markers - arrowheads
+  for(let h=0;h<12;h++){
+    const a=(h*30-90)*Math.PI/180, rr=Rdial-22;
+    const mx=cx+Math.cos(a)*rr, my=cy+Math.sin(a)*rr;
+    const ang=h*30;
+    const tri=el('polygon',{points:'0,-7 9,11 0,6 -9,11',fill:'#b9962f',stroke:'#7a5f2c','stroke-width':.8,
+      transform:`translate(${mx} ${my}) rotate(${ang})`});
+    svg.appendChild(tri);
+  }
+  // hands (10:10)
+  function hand(len,w,angDeg){
+    const a=(angDeg-90)*Math.PI/180;
+    const tx=cx+Math.cos(a)*len, ty=cy+Math.sin(a)*len;
+    const pa=(angDeg-90+90)*Math.PI/180;
+    const bx=cx+Math.cos(pa)*w, by=cy+Math.sin(pa)*w;
+    const cxp=cx-Math.cos(pa)*w, cyp=cy-Math.sin(pa)*w;
+    return el('polygon',{points:`${tx},${ty} ${bx},${by} ${cxp},${cyp}`,fill:'#7a5f2c',stroke:'#5c462010','stroke-width':.5});
+  }
+  svg.appendChild(hand(Rpie*0.62,7,300));   // hour ~10
+  svg.appendChild(hand(Rdial*0.8,5,66));     // minute ~2
+  svg.appendChild(el('circle',{cx,cy,r:7,fill:'#5c4620'}));
+
+  // ---- pointers ----
+  const parts=[
+    {id:'crystal',name:'Crystal',tag:'The cover',side:'L',ly:108,t:[cx-30,cy-Rbezel+8],
+      d:'The clear cover over the dial. Vintage uses warm, domed acrylic that scratches buff out of, not the hard sapphire of modern watches.'},
+    {id:'case',name:'Case',tag:'The body',side:'L',ly:228,t:[cx-Rcase+10,cy],
+      d:'The metal housing. Judged on size, shape, and whether it is unpolished - sharp original edges - or buffed down over the decades.'},
+    {id:'dial',name:'Dial',tag:'The face',side:'L',ly:348,t:[cx-66,cy+62],
+      d:'Everything you read the time off. The single biggest driver of looks and value, and where originality matters most.'},
+    {id:'lugs',name:'Lugs',tag:'The arms',side:'L',ly:468,t:[cx-Rcase*0.72,cy+Rcase*0.72],
+      d:'The arms that hold the strap. Lug-to-lug length decides wrist fit more than the dial diameter does.'},
+    {id:'hands',name:'Hands',tag:'Dauphine here',side:'R',ly:150,t:[cx+18,cy-14],
+      d:'Show the time. Shape is part of a watch’s character - these faceted triangular ones are dauphine hands, classic 1950s-60s dress style.'},
+    {id:'markers',name:'Hour markers',tag:'Applied arrowheads',side:'R',ly:300,t:[cx+Rdial-26,cy],
+      d:'The hour indexes. These are applied [metal, pinned on] arrowheads - they catch light and signal quality, better than flat printed markers.'},
+    {id:'crown',name:'Crown',tag:'Wind & set',side:'R',ly:440,t:[cx+Rcase+8,cy],
+      d:'The side knob. Winds the watch and sets the time, pulling out to positions for each function.'}
+  ];
+  const detail=document.getElementById('watchdetail');
+  const pulse=el('circle',{cx:-99,cy:-99,r:13,fill:'none',stroke:'#9a7b3f','stroke-width':2.5,opacity:0});
+  function setActive(p){
+    svg.querySelectorAll('.leader,.dot,.lbl-text').forEach(n=>n.classList.remove('on'));
+    document.getElementById('ld_'+p.id).classList.add('on');
+    document.getElementById('dt_'+p.id).classList.add('on');
+    document.getElementById('tx_'+p.id).classList.add('on');
+    pulse.setAttribute('cx',p.t[0]);pulse.setAttribute('cy',p.t[1]);
+    pulse.setAttribute('opacity',1);
+    detail.innerHTML='<div class="tag">'+p.tag+'</div><h3>'+p.name+'</h3><p>'+p.d+'</p>';
+  }
+  parts.forEach(p=>{
+    const lx=p.side==='L'?60:860, anchor=p.side==='L'?'start':'end';
+    const startX=p.side==='L'?lx+ (p.name.length*8.4) +14 : lx-(p.name.length*8.4)-14;
+    const ln=el('line',{id:'ld_'+p.id,class:'leader',x1:startX,y1:p.ly-5,x2:p.t[0],y2:p.t[1]});
+    const dot=el('circle',{id:'dt_'+p.id,class:'dot',cx:p.t[0],cy:p.t[1],r:4.5});
+    const tx=el('text',{id:'tx_'+p.id,class:'lbl-text',x:lx,y:p.ly,'text-anchor':anchor});
+    tx.textContent=p.name;
+    [ln,dot,tx].forEach(n=>{n.style.cursor='pointer';n.addEventListener('click',()=>setActive(p));});
+    svg.appendChild(ln);svg.appendChild(dot);svg.appendChild(tx);
+  });
+  svg.appendChild(pulse);
+  setActive(parts[0]);
+})();
+
+/* ---------- MOVEMENT SCHEMATIC ---------- */
+(function(){
+  const svg=document.getElementById('movesvg');
+  function txt(x,y,s,fs){const t=el('text',{x,y,'text-anchor':'middle','font-size':fs||12.5,'font-family':'Inter','font-weight':600,fill:'#5c544a'});t.textContent=s;svg.appendChild(t);}
+  // rotor arc
+  const rotor=el('path',{d:'M70 60 A170 170 0 0 1 390 60 L360 78 A150 150 0 0 0 100 78 Z',fill:'#cdcabf',stroke:'#9a978f'});
+  svg.appendChild(rotor);
+  txt(230,48,'Rotor',13);
+  // spiral spring inside barrel
+  svg.appendChild(el('circle',{cx:110,cy:170,r:46,fill:'#f0ead9',stroke:'#9a8a5e','stroke-width':1.5}));
+  const sp=el('path',{d:'M110 170 m0 0 a6 6 0 1 1 8 4 a14 14 0 1 1 -20 -6 a24 24 0 1 1 34 8 a34 34 0 1 1 -42 -10',fill:'none',stroke:'#b9962f','stroke-width':2});
+  svg.appendChild(sp);
+  txt(110,232,'Mainspring');
+  // gear train
+  [ [200,200,20],[250,165,16] ].forEach(([x,y,r])=>{
+    const gear=el('circle',{cx:x,cy:y,r,fill:'#e6dcc0',stroke:'#9a8a5e','stroke-width':1.5});
+    svg.appendChild(gear);
+  });
+  txt(225,240,'Gear train');
+  // escapement (small)
+  svg.appendChild(el('circle',{cx:312,cy:190,r:13,fill:'#e6dcc0',stroke:'#9a8a5e','stroke-width':1.5}));
+  txt(312,222,'Escapement');
+  // balance wheel
+  svg.appendChild(el('circle',{cx:372,cy:250,r:38,fill:'none',stroke:'#b9962f','stroke-width':5}));
+  svg.appendChild(el('circle',{cx:372,cy:250,r:4,fill:'#7a5f2c'}));
+  svg.appendChild(el('line',{x1:334,y1:250,x2:410,y2:250,stroke:'#b9962f','stroke-width':2}));
+  svg.appendChild(el('line',{x1:372,y1:212,x2:372,y2:288,stroke:'#b9962f','stroke-width':2}));
+  txt(372,306,'Balance wheel');
+  // flow arrows
+  [['150,170','176,190'],['222,182','250,182'],['268,178','300,186'],['324,200','350,228']].forEach(([a,b])=>{
+    const [ax,ay]=a.split(',').map(Number),[bx,by]=b.split(',').map(Number);
+    svg.appendChild(el('line',{x1:ax,y1:ay,x2:bx,y2:by,stroke:'#c2b694','stroke-width':2,'marker-end':'url(#arr)'}));
+  });
+  const defs=el('defs',{});const m=el('marker',{id:'arr',markerWidth:8,markerHeight:8,refX:6,refY:3,orient:'auto'});
+  m.appendChild(el('path',{d:'M0,0 L6,3 L0,6 Z',fill:'#c2b694'}));defs.appendChild(m);svg.insertBefore(defs,svg.firstChild);
+})();
+
+/* ---------- DIAL TEXTURE SWATCHES ---------- */
+(function(){
+  const hc=document.getElementById('honeyswatch');
+  for(let y=0;y<120;y+=14)for(let x=0;x<210;x+=16){
+    const off=(Math.round(y/14)%2)?8:0;
+    hc.appendChild(el('polygon',{points:'0,-6 7,-3 7,3 0,6 -7,3 -7,-3',transform:`translate(${x+off} ${y})`,fill:'none',stroke:'#cdbf9c','stroke-width':1}));
+  }
+  const ln=document.getElementById('linenswatch');
+  for(let i=-120;i<210;i+=7){ln.appendChild(el('line',{x1:i,y1:0,x2:i+120,y2:120,stroke:'#cdbf9c','stroke-width':.8}));ln.appendChild(el('line',{x1:i,y1:120,x2:i+120,y2:0,stroke:'#d8ccab','stroke-width':.8}));}
+})();
+
+/* ---------- MINI WATCH ICONS (collection) ---------- */
+function miniWatch(svg,kind){
+  const cx=60,cy=60,R=42,rd=33;
+  svg.appendChild(el('circle',{cx,cy,r:R,fill:'#cdcabf',stroke:'#8f8c84','stroke-width':2}));
+  svg.appendChild(el('rect',{x:cx+R-2,y:cy-5,width:9,height:10,rx:2,fill:'#bdbab1',stroke:'#8f8c84'}));
+  const dial=kind==='subsec'?'#f2ecdc':'#f7f1e2';
+  svg.appendChild(el('circle',{cx,cy,r:rd,fill:dial,stroke:'#cdbf9c'}));
+  if(kind==='constellation'){
+    svg.appendChild(el('circle',{cx,cy,r:24,fill:'none',stroke:'#dccfac'}));
+    for(let h=0;h<12;h++){const a=(h*30-90)*Math.PI/180;svg.appendChild(el('polygon',{points:'0,-4 4,5 0,3 -4,5',transform:`translate(${cx+Math.cos(a)*26} ${cy+Math.sin(a)*26}) rotate(${h*30})`,fill:'#b9962f'}));}
+  } else if(kind==='seamaster'){
+    const g=el('g',{});for(let y=cy-26;y<cy+26;y+=6)for(let x=cx-26;x<cx+26;x+=7){if((x-cx)**2+(y-cy)**2<rd*rd-40)g.appendChild(el('circle',{cx:x,cy:y,r:1,fill:'#d8cba8'}));}
+    svg.appendChild(g);
+    for(let h=0;h<12;h++){const a=(h*30-90)*Math.PI/180;svg.appendChild(el('rect',{x:cx+Math.cos(a)*26-1,y:cy+Math.sin(a)*26-3,width:2,height:6,fill:'#b9962f',transform:`rotate(${h*30} ${cx+Math.cos(a)*26} ${cy+Math.sin(a)*26})`}));}
+  } else {
+    for(let h=0;h<12;h++){const a=(h*30-90)*Math.PI/180;svg.appendChild(el('circle',{cx:cx+Math.cos(a)*26,cy:cy+Math.sin(a)*26,r:1.4,fill:'#9a8a5e'}));}
+    svg.appendChild(el('circle',{cx,cy:cy+18,r:7,fill:'none',stroke:'#cdbf9c'}));
+  }
+  svg.appendChild(el('line',{x1:cx,y1:cy,x2:cx-10,y2:cy-14,stroke:'#7a5f2c','stroke-width':2.5,'stroke-linecap':'round'}));
+  svg.appendChild(el('line',{x1:cx,y1:cy,x2:cx+16,y2:cy-7,stroke:'#7a5f2c','stroke-width':2,'stroke-linecap':'round'}));
+  svg.appendChild(el('circle',{cx,cy,r:2.6,fill:'#5c4620'}));
+}
+document.querySelectorAll('svg[data-mini]').forEach(s=>miniWatch(s,s.dataset.mini));
+
+/* ---------- TABS / ACCORDIONS ---------- */
+document.querySelectorAll('#movetabs button').forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll('#movetabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.tabpane').forEach(p=>p.classList.toggle('active',p.dataset.m===btn.dataset.m));
+});
+document.querySelectorAll('.acc>button').forEach(btn=>btn.onclick=()=>btn.parentElement.classList.toggle('open'));
+
+/* ---------- GLOSSARY ---------- */
+const GLOSS=[
+["Amplitude","How far the balance wheel swings. A health reading; ~250-300&deg; strong, 200&deg;+ acceptable for vintage."],
+["Applied markers","Metal hour indexes pinned to the dial, not printed. Catch light, signal quality."],
+["Automatic","Self-winding. A rotor winds the mainspring as you move."],
+["Beat error","How evenly spaced the tick and tock are. Under 0.8ms is good."],
+["Bumper","Early automatic where the weight rocks and bumps springs. You feel a nudge. [Your cal 354.]"],
+["Caliber","The model name of a movement. Encodes size, type, era, quality."],
+["Chronograph","A watch with a stopwatch worked by pushers."],
+["Chronometer","A movement certified to a high accuracy standard. The Constellation line is chronometer-grade."],
+["Complication","Any function beyond basic timekeeping - date, chronograph, moonphase, GMT."],
+["Crown","The side knob used to wind and set the watch."],
+["Dauphine hands","Faceted, tapering triangular hands. Classic 1950s-60s dress style."],
+["Dial","The face of the watch. Originality here is the biggest value factor."],
+["Franken[watch]","Assembled from parts of several different watches. Not honest, not worth honest money."],
+["Honeycomb","A fine grid texture pressed into a dial. [Your Seamaster 2577.] Also called waffle."],
+["Jewels","Synthetic ruby bearings that cut friction inside the movement."],
+["Lug-to-lug","Tip-to-tip length across the lugs. Decides wrist fit more than diameter."],
+["Lume","Luminous material on hands and markers. Ages to cream - desirable patina when even."],
+["Mainspring","The coiled spring that stores the watch's energy."],
+["Manual","Hand-wound. You wind the crown daily. [Your cal 265.]"],
+["Microrotor","A small winding rotor sunk into the movement, for a thinner automatic. [Polerouter cal 215/218.]"],
+["Movement","The mechanical engine of the watch. The watch, essentially."],
+["NOS","New old stock. An old watch never sold or worn. Rare, often faked."],
+["Patina","Honest aging - warmed dials, cream lume. Loved when natural and even."],
+["Pie-pan","A dial whose outer edge slopes down like an upside-down pie pan. Signature of the Constellation."],
+["Power reserve","Hours a fully wound watch runs before stopping. Often ~40 hours."],
+["Quartz","Battery-powered, crystal-regulated. Accurate, cheap, not the target here."],
+["Reference number","The model code identifying exactly what a watch is. [Your Seamaster: ref 2577.]"],
+["Refinished / redial","A dial that has been repainted. Looks too clean for its age, and cuts value sharply."],
+["Rotor","The swinging weight that winds an automatic watch."],
+["Sapphire","Hard, scratch-resistant modern crystal. Vintage uses acrylic instead."],
+["Serial number","A watch's unique number; on most brands it dates the watch."],
+["Service","Full clean, oil, and regulate. Needed every 3-5 years. Factor it into the real price."],
+["Sub-seconds","A small seconds hand in its own sub-dial, not sweeping from the center. [Your ref 2536.]"],
+["Sweep","The smooth glide of a mechanical seconds hand. Quartz ticks in steps instead."],
+["Tropical","A dial naturally aged to brown. Desirable when genuine, the most faked trait in vintage."],
+["Unpolished","A case never buffed down. Sharp, full edges, as the factory made it. A real plus."]
+];
+const glist=document.getElementById('glist'),gcount=document.getElementById('gcount');
+GLOSS.sort((a,b)=>a[0].localeCompare(b[0])).forEach(g=>{const d=document.createElement('div');d.className='gitem';d.innerHTML='<dt>'+g[0]+'</dt><dd>'+g[1]+'</dd>';glist.appendChild(d);});
+function rc(){gcount.textContent=[...glist.children].filter(c=>!c.classList.contains('ghidden')).length+' of '+GLOSS.length+' terms';}
+rc();
+document.getElementById('gsearch').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();[...glist.children].forEach(c=>c.classList.toggle('ghidden',q&&!c.textContent.toLowerCase().includes(q)));rc();});
+
+/* ---------- NAV SCROLLSPY ---------- */
+const navlinks=[...document.querySelectorAll('nav a')];
+new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)navlinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+en.target.id));}),{rootMargin:'-45% 0px -50% 0px'}).observe&&document.querySelectorAll('section[id]').forEach(s=>{const o=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)navlinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+en.target.id));}),{rootMargin:'-45% 0px -50% 0px'});o.observe(s);});
+</script>
+</body>
+</html>
